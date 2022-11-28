@@ -1,0 +1,66 @@
+/**
+ * Primary Toggle Button
+ */
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Button, Label } from '@folio/stripes/components';
+import { FormattedMessage } from 'react-intl';
+
+const PrimaryToggleButton = ({
+  label,
+  input: {
+    value,
+    onChange
+  },
+  fields,
+  disabled,
+}) => {
+  const isPrimary = value === true;
+  const handleClick = () => {
+    if (isPrimary) {
+      return;
+    }
+
+    // Reset other primary fields
+    fields.forEach((_, index) => {
+      fields.update(index, { ...fields.value[index], primary: false });
+    });
+
+    // Set primary flag for current field
+    onChange(true);
+  };
+
+  return (
+    <>
+      { label && <Label>{label}</Label>}
+      <Button
+        data-testid="primaryToggleButton"
+        data-test-primary-toggle-button
+        buttonStyle={isPrimary ? 'primary' : 'default'}
+        onClick={handleClick}
+        type="button"
+        disabled={disabled}
+        fullWidth
+      >
+        <FormattedMessage id={`ui-inventory.${isPrimary ? 'primary' : 'makePrimary'}`} />
+      </Button>
+    </>
+  );
+};
+
+PrimaryToggleButton.propTypes = {
+  fields: PropTypes.shape({
+    forEach: PropTypes.func,
+    update: PropTypes.func,
+    value: PropTypes.any,
+  }).isRequired,
+  label: PropTypes.node,
+  input: PropTypes.shape({
+    onChange: PropTypes.func,
+    value: PropTypes.any,
+  }).isRequired,
+  disabled: PropTypes.bool.isRequired,
+};
+
+export default PrimaryToggleButton;

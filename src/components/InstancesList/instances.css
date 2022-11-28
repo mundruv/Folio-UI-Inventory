@@ -1,0 +1,24 @@
+@import '@folio/stripes-components/lib/variables';
+
+.actionIcon {
+  margin-right: 10px;
+}
+
+.authorityIcon {
+  margin-right: 5px;
+}
+
+.boundWithIcon {
+  background-color: transparent !important;
+  margin-left: var(--gutter-static-one-third);
+}
+
+.cellAlign {
+  align-items: flex-start;
+}
+
+.feedbackError {
+  margin-left: 26px;
+  font-weight: var(--text-weight-bold);
+  color: var(--error);
+}
